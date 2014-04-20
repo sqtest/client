@@ -1,4 +1,5 @@
 package {
+    import as3isolib.display.IsoSprite;
     import as3isolib.display.IsoView;
     import as3isolib.display.scene.IsoGrid;
     import as3isolib.display.scene.IsoScene;
@@ -7,13 +8,18 @@ package {
     
     import eDpLib.events.ProxyEvent;
     
+    import flash.display.Bitmap;
+    import flash.display.Loader;
     import flash.display.Sprite;
+    import flash.events.Event;
     import flash.events.MouseEvent;
+    import flash.net.URLRequest;
     
-    import network.SQTcpClient;
     import network.SQResponceRouter;
+    import network.SQTcpClient;
+    import game.SQGameScene;
 	
-	[SWF(width='800', height="600", backgroundColor='#000000', frameRate="24")]
+	[SWF(width='800', height='600', frameRate="24")]
 	
     public class Client extends Sprite {
 		private var scene:IsoScene;
@@ -23,30 +29,39 @@ package {
 		private var tcpClient:SQTcpClient;
 
 		private var tcpRespoouter:SQResponceRouter;
+
+		private var gameScene:SQGameScene = new SQGameScene();
 		
         public function Client() {
-			tcpClient = new SQTcpClient();
-			tcpRespoouter = new SQResponceRouter(tcpClient);
-			tcpClient.connect();
+			SQShared.STAGE = stage;
+			SQShared.ROOT = this;
+			SQShared.TCPClient.connect();
+			SQShared.ResponceRouter = new SQResponceRouter(SQShared.TCPClient);
+			SQShared.gameScene.initScene();
 			
-			tcpClient.sendRequest({action : 'ActionAuth', params : {fieldid : 1}});
 			
-			view = new IsoView();
-			view.setSize(800, 600);
-			view.centerOnPt(new Pt(200, 200, 0));
-
-			grid = new IsoGrid();
-			grid.setGridSize(10, 10, 0);
-			grid.cellSize = 50;
-			grid.addEventListener(MouseEvent.CLICK, gridClick);
-			
-			scene = new IsoScene;
-			scene.addChild(grid);
-			scene.render();
-			
-			view.addScene(scene);
-			addChild(view);		
         }
+		
+		private function createMap(e : Event):void {
+			var iso:IsoSprite;
+			var spriteImg:Bitmap;
+			for (var i:int = 0; i < 10; i++) 
+			{
+				for (var j:int = 0; j < 10; j++) 
+				{
+					spriteImg = new Bitmap(e.target.content.bitmapData);
+					spriteImg.x = -spriteImg.width/2;
+					spriteImg.y = 0;
+
+					iso = new IsoSprite();
+					iso.moveBy(i*50, j*50, 0);
+					iso.sprites = [spriteImg];
+					scene.addChild(iso);
+				}
+				
+			}
+			scene.render();
+		}
 		
 		private function gridClick(event : ProxyEvent):void
 		{
@@ -54,8 +69,7 @@ package {
 			var p: Pt = new Pt(me.localX, me.localY);
 			IsoMath.screenToIso(p);
 		}
-		
-		
+	
 	}
 }
 

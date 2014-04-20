@@ -59,7 +59,6 @@ package network {
 				case SecurityErrorEvent.SECURITY_ERROR : 
 					break;
 				case ProgressEvent.SOCKET_DATA :
-					sc.writeUTFBytes( 'client deconnecte' );
 					var d:String = sc.readUTFBytes( sc.bytesAvailable );
 					getData( d );
 					break;
