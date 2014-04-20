@@ -17,7 +17,6 @@ package game
 		}
 		
 		public function buildField(xml: XMLList) : void{
-			trace(xml.field);
 			SQShared.GRID.setGridSize(xml.field.@sizex, xml.field.@sizey, 0	);
 			SQShared.GRID.cellSize = SQShared.GRID_CELL_SIZE; 
 			SQShared.SCENE.addChild(SQShared.GRID);
@@ -30,6 +29,11 @@ package game
 			));
 			
 			SQShared.ROOT.addChild(SQShared.VIEW);
+			SQShared.ROOT.addEventListener(Event.ENTER_FRAME, gameLoop, false, 1, true);
+		}
+		
+		private function gameLoop(e:Event):void
+		{
 			SQShared.SCENE.render();
 		}
 		
