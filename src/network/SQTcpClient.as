@@ -9,11 +9,11 @@ package network {
 	
 	import helpers.SQXmlHelper;
 	
-	public class SQSocket extends EventDispatcher
+	public class SQTcpClient extends EventDispatcher
 	{
 		private var sc:Socket;
 		private var data:String;
-		public function SQSocket() {
+		public function SQTcpClient() {
 			sc = new Socket();
 			initListeners();
 		}

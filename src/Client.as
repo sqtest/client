@@ -9,6 +9,9 @@ package {
     
     import flash.display.Sprite;
     import flash.events.MouseEvent;
+    
+    import network.SQTcpClient;
+    import network.SQResponceRouter;
 	
 	[SWF(width='800', height="600", backgroundColor='#000000', frameRate="24")]
 	
@@ -16,8 +19,18 @@ package {
 		private var scene:IsoScene;
 		private var grid:IsoGrid;
 		private var view:IsoView;
+
+		private var tcpClient:SQTcpClient;
+
+		private var tcpRespoouter:SQResponceRouter;
 		
         public function Client() {
+			tcpClient = new SQTcpClient();
+			tcpRespoouter = new SQResponceRouter(tcpClient);
+			tcpClient.connect();
+			
+			tcpClient.sendRequest({action : 'ActionAuth', params : {fieldid : 1}});
+			
 			view = new IsoView();
 			view.setSize(800, 600);
 			view.centerOnPt(new Pt(200, 200, 0));
