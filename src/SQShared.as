@@ -14,6 +14,8 @@ package {
     public class SQShared {
 		
 		static public const GRID_CELL_SIZE:int = 50;
+		static public const SERVER_HOST: String = 'localhost';
+		static public const SERVER_PORT: int = 4444;
 		
 		static public var ROOT : Sprite;
 		static public var STAGE: Stage;

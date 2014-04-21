@@ -15,9 +15,10 @@ package {
     import flash.events.MouseEvent;
     import flash.net.URLRequest;
     
+    import game.SQGameScene;
+    
     import network.SQResponceRouter;
     import network.SQTcpClient;
-    import game.SQGameScene;
 	
 	[SWF(width='800', height='600', frameRate="24")]
 	
@@ -35,11 +36,9 @@ package {
         public function Client() {
 			SQShared.STAGE = stage;
 			SQShared.ROOT = this;
-			SQShared.TCPClient.connect();
+			SQShared.TCPClient.connect(SQShared.SERVER_HOST, SQShared.SERVER_PORT);
 			SQShared.ResponceRouter = new SQResponceRouter(SQShared.TCPClient);
 			SQShared.gameScene.initScene();
-			
-			
         }
 		
 		private function createMap(e : Event):void {
