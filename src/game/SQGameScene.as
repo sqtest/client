@@ -1,15 +1,20 @@
 package game
 {
+	import as3isolib.display.IsoSprite;
 	import as3isolib.geom.Pt;
 	
 	import flash.display.Bitmap;
 	import flash.events.Event;
-	import as3isolib.display.IsoSprite;
+	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	
 	public class SQGameScene
 	{
 		private var _sizex:int;
 		private var _sizey:int;
+		
+		private var _mouseClicked : Boolean = false;
+		private var _panPt : Point;
 		
 		public function initScene() : void
 		{
@@ -38,6 +43,9 @@ package game
 			
 			SQShared.ROOT.addChild(SQShared.VIEW);
 			SQShared.ROOT.addEventListener(Event.ENTER_FRAME, gameLoop, false, 1, true);
+			SQShared.STAGE.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown, false, 0, true);
+			SQShared.STAGE.addEventListener(MouseEvent.MOUSE_UP, mouseUp, false, 0, true);
+
 
 			var lib:SQSpriteLib = new SQSpriteLib();
 			lib.load('grass.png', generateMap);
@@ -64,8 +72,26 @@ package game
 			}
 		}
 		
+		private function mouseDown(e: Event) : void  {
+			_panPt = SQShared.ROOT.globalToLocal(new Point(SQShared.STAGE.mouseX, SQShared.STAGE.mouseY));
+			_mouseClicked = true;
+		}
+		
+		private function mouseUp(e: Event) : void  {
+			_mouseClicked = false;
+		}
+		
+		public function checkPan() : void {
+			if(_mouseClicked) {
+				SQShared.VIEW.pan(_panPt.x-SQShared.STAGE.mouseX, _panPt.y-SQShared.STAGE.mouseY);
+				_panPt.x = SQShared.STAGE.mouseX ;
+				_panPt.y = SQShared.STAGE.mouseY;
+			}
+		}
+		
 		private function gameLoop(e:Event):void
 		{
+			checkPan();
 			SQShared.SCENE.render();
 		}
 		
