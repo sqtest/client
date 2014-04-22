@@ -135,7 +135,6 @@ package field {
 				sp.updateStatus();
 				sp.respRouter.resetBuildingSig.add(sp.reset);
 				sp.respRouter.contractStartSig.add(sp.contractStart);
-				sp.respRouter.moveObjectSig.add(sp.moveObject);
 				sp.respRouter.sellObjectSig.add(sp.sellObject);
 				scene.addChild(sp);
 				scene.render();
@@ -163,7 +162,7 @@ package field {
 //					sp.mouseDown.add(mouseHandler.mouseDownHandler);
 //					sp.mouseUp.add(mouseHandler.mouseUpHandler);
 //					sp.mouseClick.add(mouseHandler.mouseClickHandler);
-
+					
 					scene.addChild(sp);
 				}
 			}

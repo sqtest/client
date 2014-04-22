@@ -43,6 +43,7 @@ package field
 		public function switchMove() {
 			isStageMove = !isStageMove;
 			if(isStageMove) {
+				scene.container.mouseEnabled = true;
 				view.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 				view.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
 				view.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);

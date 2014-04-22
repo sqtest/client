@@ -77,12 +77,6 @@ package field.objects {
 			}
 		}
 		
-		public function moveObject(xml: XMLList) : void {
-			if(xml.result.id==this.id) {
-				this.moveTo(xml.result.x*SQShared.GRID_CELL_SIZE, xml.result.y*SQShared.GRID_CELL_SIZE, 0);
-			}
-		}
-
 		public function sellObject(xml: XMLList) : void {
 			if(xml.result.id==this.id) {
 				this.sprites=[];

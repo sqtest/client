@@ -6,31 +6,14 @@ package {
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	
-	import game.SQGameScene;
-	
 	import network.SQResponceRouter;
 	import network.SQTcpClient;
-	import game.SQMouseEventHandler;
 
     public class SQShared {
 		
 		static public const GRID_CELL_SIZE:int = 50;
 		static public const SERVER_HOST: String = 'localhost';
 		static public const SERVER_PORT: int = 4444;
-		
-		static public var ROOT : Sprite;
-		static public var STAGE: Stage;
-		
-		static public var gameScene: SQGameScene = new SQGameScene();
-
-		static public var TCPClient : SQTcpClient = new SQTcpClient();
-		static public var ResponceRouter: SQResponceRouter;
-		
-		static public var SCENE : IsoScene = new IsoScene();
-		static public var GRID : IsoGrid  = new IsoGrid();
-		static public var VIEW : IsoView = new IsoView();
-
-		static public var mouseHandler : SQMouseEventHandler = new SQMouseEventHandler();
 		
     }
 }
