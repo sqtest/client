@@ -6,15 +6,11 @@ package game
 	import flash.display.Bitmap;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.geom.Point;
 	
 	public class SQGameScene
 	{
 		private var _sizex:int;
 		private var _sizey:int;
-		
-		private var _mouseClicked : Boolean = false;
-		private var _panPt : Point;
 		
 		public function initScene() : void
 		{
@@ -42,15 +38,15 @@ package game
 			_sizey = xml.field.@sizey;
 			
 			SQShared.ROOT.addChild(SQShared.VIEW);
-			SQShared.ROOT.addEventListener(Event.ENTER_FRAME, gameLoop, false, 1, true);
-			SQShared.STAGE.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown, false, 0, true);
-			SQShared.STAGE.addEventListener(MouseEvent.MOUSE_UP, mouseUp, false, 0, true);
-
+			SQShared.ROOT.addEventListener(Event.ENTER_FRAME, gameLoop, false, 0, true);
+			SQShared.ROOT.addEventListener(MouseEvent.MOUSE_DOWN, SQShared.mouseHandler.mouseDown, true, 0, true);
+			SQShared.ROOT.addEventListener(MouseEvent.MOUSE_UP, SQShared.mouseHandler.mouseUp, false, 0, true);
+			SQShared.ROOT.addEventListener(MouseEvent.MOUSE_MOVE, SQShared.mouseHandler.mouseMove, false, 0, true);
 
 			var lib:SQSpriteLib = new SQSpriteLib();
-			lib.load('grass.png', generateMap);
-			
+			//lib.load('grass', generateMap);
 		}
+		
 		private function generateMap(texture:Bitmap): void {
 			var iso:IsoSprite;
 			var spriteImg:Bitmap;
@@ -58,40 +54,43 @@ package game
 			{
 				for (var j:int = 0; j < _sizey; j++) 
 				{
-					var duplicate:Bitmap = new Bitmap();
-					duplicate.bitmapData = texture.bitmapData;
-					duplicate.x = -duplicate.width/2;
-					duplicate.y = 0;
-
-					iso = new IsoSprite();
-					iso.moveBy(i*SQShared.GRID_CELL_SIZE, j*SQShared.GRID_CELL_SIZE, 0);
-					iso.sprites = [duplicate];
-					SQShared.SCENE.addChild(iso);
+					SQGameObject.placeTo(texture, i, j);
 				}
 				
 			}
+//			var a: SQGameObject = new SQGameObject('factory1');
+//			a.addTo(3, 3);
+//			a.loadSpriteSig.add(loadSpriteCb);
 		}
 		
-		private function mouseDown(e: Event) : void  {
-			_panPt = SQShared.ROOT.globalToLocal(new Point(SQShared.STAGE.mouseX, SQShared.STAGE.mouseY));
-			_mouseClicked = true;
+		private function loadSpriteCb(iso: SQSprite): void {
+			//iso.mouseDownSig.add(SQShared.mouseHandler.mouseDown);
+			//iso.mouseUpSig.add(SQShared.mouseHandler.mouseUp);
 		}
-		
-		private function mouseUp(e: Event) : void  {
-			_mouseClicked = false;
-		}
-		
-		public function checkPan() : void {
-			if(_mouseClicked) {
-				SQShared.VIEW.pan(_panPt.x-SQShared.STAGE.mouseX, _panPt.y-SQShared.STAGE.mouseY);
-				_panPt.x = SQShared.STAGE.mouseX ;
-				_panPt.y = SQShared.STAGE.mouseY;
-			}
-		}
+//		
+//		private function mouseDown(e: Event) : void  {
+//			_panPt = SQShared.ROOT.globalToLocal(new Point(SQShared.STAGE.mouseX, SQShared.STAGE.mouseY));
+//			_mouseClicked = true;
+//			_mouseTarget = e.target;
+//		}
+//		
+//		private function mouseUp(e: Event) : void  {
+//			_mouseClicked = false;
+//		}
+//		
+//		public function checkPan() : void {
+//			if(_mouseClicked) {
+//				//_mouseTarget.moveTo(SQShared.STAGE.mouseX, SQShared.STAGE.mouseY, 0);
+////				
+////				SQShared.VIEW.pan(_panPt.x-SQShared.STAGE.mouseX, _panPt.y-SQShared.STAGE.mouseY);
+////				_panPt.x = SQShared.STAGE.mouseX ;
+////				_panPt.y = SQShared.STAGE.mouseY;
+//			}
+//		}
 		
 		private function gameLoop(e:Event):void
 		{
-			checkPan();
+			//checkPan();
 			SQShared.SCENE.render();
 		}
 		

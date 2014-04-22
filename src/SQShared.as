@@ -10,6 +10,7 @@ package {
 	
 	import network.SQResponceRouter;
 	import network.SQTcpClient;
+	import game.SQMouseEventHandler;
 
     public class SQShared {
 		
@@ -28,6 +29,9 @@ package {
 		static public var SCENE : IsoScene = new IsoScene();
 		static public var GRID : IsoGrid  = new IsoGrid();
 		static public var VIEW : IsoView = new IsoView();
+
+		static public var mouseHandler : SQMouseEventHandler = new SQMouseEventHandler();
+		
     }
 }
 
