@@ -68,23 +68,7 @@ package
 		
 		private function drawPanel() : void {
 			addButton(5, 5, 'Создать', function(e: MouseEvent):void{
-				var up:Sprite = new Sprite();
-				up.graphics.lineStyle(1, 0x000000);
-				up.graphics.beginFill(0xCCFF00);
-				up.graphics.drawRect(0,0,stage.width,stage.height);
-				stage.addChild(up);
-				
-				
-				var lib:SQSpriteLib = new SQSpriteLib();
-				var f : Function = function(texture:Bitmap) : void {
-					var duplicate:Bitmap = new Bitmap(); 
-					duplicate.bitmapData = texture.bitmapData;
-					duplicate.x = 10;
-					duplicate.y = 0;
-					up.addChild(duplicate);
-				}
-				lib.loadSig.add(f);
-				lib.load('grass');
+
 
 				
 			});

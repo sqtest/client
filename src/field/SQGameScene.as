@@ -158,10 +158,6 @@ package field {
 					sp.moveBy(i*SQShared.GRID_CELL_SIZE, j*SQShared.GRID_CELL_SIZE, 0);
 					sp.sprites = [duplicate];
 					sp.container.mouseEnabled = false;
-//					sp.mouseMove.add(mouseHandler.mouseMoveHandler);
-//					sp.mouseDown.add(mouseHandler.mouseDownHandler);
-//					sp.mouseUp.add(mouseHandler.mouseUpHandler);
-//					sp.mouseClick.add(mouseHandler.mouseClickHandler);
 					
 					scene.addChild(sp);
 				}
